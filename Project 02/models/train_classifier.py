@@ -17,6 +17,13 @@ nltk.download('wordnet')
 
 
 def load_data(database_filepath):
+    '''
+    Loads data from provided DB file into input variable and output categories
+    :param database_filepath: filepath for SQL database to open
+    :return:
+    X   dataframe with messages to use as input variable
+    y   dataframe with predictable output values
+    '''
     # read sql db
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql("SELECT * FROM DisasterResponse", engine)
@@ -28,6 +35,12 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''
+    Process text with tokenization and lemmatization and standardization
+    :param text: string input to tokenize
+    :return:
+    clean_tokens    a list of tokens that can be used for modelling
+    '''
     # tokenize to words
     tokens = word_tokenize(text)
 
@@ -39,6 +52,11 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+    Create ML pipeline for modelling connection between input and output variables
+    :return:
+    pipeline    scikit Pipeline object to fit and predict
+    '''
     # create pipeline
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
@@ -49,6 +67,14 @@ def build_model():
 
 
 def evaluate_model(model, X_test, y_test):
+    '''
+    Use model to predict outcomes and evaluate accuracy
+    :param model: scikit Pipeline object to use for prediction
+    :param X_test: input variable test split
+    :param y_test: output variables test split
+    :return:
+    Prints out classification reports
+    '''
     # predict categories
     y_pred = model.predict(X_test)
 
@@ -58,6 +84,12 @@ def evaluate_model(model, X_test, y_test):
 
 
 def save_model(model, model_filepath):
+    '''
+    Saves model into a pickle file
+    :param model: fitted model to reuse in the future
+    :param model_filepath: target filepath to save the model to
+    :return: None
+    '''
     # save to pickle file
     pickle.dump(model, open(model_filepath, 'wb'))
 

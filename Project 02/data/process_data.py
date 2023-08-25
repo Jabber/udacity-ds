@@ -4,6 +4,18 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    '''
+    Loads data from csv files and merges them into a single dataframe as well as two separate dataframes for
+    further cleaning opportunities
+
+    :param messages_filepath: filepath to messages csv file
+    :param categories_filepath: filepath to categories csv file
+
+    :return:
+    df          unified dataframe,
+    categories  dataframe for cleaning,
+    messages    dataframe for cleaning
+    '''
     # read 2 datasets
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -13,7 +25,17 @@ def load_data(messages_filepath, categories_filepath):
     return df, categories, messages
 
 
-def clean_data(df, categories, messages):
+def clean_data(df, categories, messages=[]):
+    '''
+    Cleans data by expanding categories and assigning 0-1 values, removing unused columns and duplicates
+
+    :param df: unified dataframe to work with
+    :param categories: dataframe to clean up values
+    :param messages: optional param in case other modulations are required for messages sub-dataframe
+
+    :return:
+    df          unified and clean disaster messages + categories dataframe
+    '''
     # expand categories column to multiple columns
     test_text = str(categories.categories[0]).split(';')
     category_colnames = [category.split('-')[0] for category in test_text]
@@ -38,6 +60,13 @@ def clean_data(df, categories, messages):
 
 
 def save_data(df, database_filename):
+    '''
+    Saves data into SQL database for future retrieval
+
+    :param df: unified disaster messages + categories dataframe
+    :param database_filename: target file to write DB in
+    :return: None
+    '''
     # save into sql db
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('DisasterResponse', engine, if_exists='replace', index=False)

@@ -48,7 +48,8 @@ def index():
     original_names = ['Original exists', 'Original does not exist']
 
     top_values = sorted(df.drop(['id', 'message', 'original', 'genre'], axis=1).sum(axis=0), reverse=True)[:3]
-    top_columns = [col for col in df.drop(['id','message','original','genre'], axis=1).columns if df[col].sum() in top_values]
+    top_columns = [col for col in df.drop(['id', 'message', 'original', 'genre'], axis=1).columns if
+                   df[col].sum() in top_values]
 
     # create visuals
     graphs = [

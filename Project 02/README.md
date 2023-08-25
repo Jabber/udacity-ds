@@ -1,6 +1,16 @@
 # Disaster Response Pipeline Project
 
-## Aim for the Project and Context
+## Aim for the Project 
+Building an application to accurately and quickly classify 
+incoming messages across 36 categories, thereby allowing swift responses. 
+
+This functionality is invaluable for disaster response agencies, 
+as they can leverage this application to quickly and effectively categorize incoming messages 
+during critical situations, allowing anyone to type in or copy 
+a message and quickly gauge which agency could handle the event.
+
+
+## Context
 Creating a DS pipeline for a Disaster DB cleaning data, putting it 
 through ETL then and ML pipeline, resulting in a web app where a new
 piece of news can be submitted and checked for potential categorization.
@@ -58,3 +68,7 @@ piece of news can be submitted and checked for potential categorization.
 3. Run your web app: `python run.py`
 
 4. Go to http://0.0.0.0:3000/
+
+## Acknowledgements
+Web app is based on starter code of Udacity DS' Project 2 suite, thank you for 
+the provided snippets.
