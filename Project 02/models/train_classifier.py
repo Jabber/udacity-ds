@@ -6,6 +6,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
@@ -55,7 +56,7 @@ def build_model():
     '''
     Create ML pipeline for modelling connection between input and output variables
     :return:
-    pipeline    scikit Pipeline object to fit and predict
+    pipeline    pipeline with parameter grid for finetuning and fit
     '''
     # create pipeline
     pipeline = Pipeline([
@@ -63,7 +64,14 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
-    return pipeline
+
+    parameters = {
+        'clf__estimator__verbose': [0, 1],
+        'clf__estimator__max_depth': [None, 5]
+    }
+
+    cv = GridSearchCV(pipeline, param_grid=parameters, cv=5)
+    return cv
 
 
 def evaluate_model(model, X_test, y_test):
