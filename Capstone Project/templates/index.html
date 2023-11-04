@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogbreed model</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function handleClick() {
+            var imgUrlValue = document.getElementById('imgurl').value;
+            document.getElementById('resultimage').src = imgUrlValue;
+            document.getElementById('resultimage').width = 224;
+            document.getElementById('predictionResult').innerText = '';
+            $.post('/predict', {imgurl: imgUrlValue}, function (data) {
+                document.getElementById('predictionResult').innerText = data;
+                document.getElementById('resultimage').style.display = 'block';
+            });
+        }
+    </script>
+    <style>
+        #resultimage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <h1>Assess dog breed</h1>
+    <label for="imgurl">Image URL:</label>
+    <input type="text" id="imgurl" name="imgurl"
+           value="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=3348&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+           required>
+    <button type="button" onclick="handleClick()">Submit</button>
+</form>
+<img id="resultimage" alt="Result Image">
+<h2 id="predictionResult"></h2>
+</body>
+</html>
