@@ -16,6 +16,7 @@ from skimage import io
 dog_names = pickle.load(open("dog_names.pickle", "rb"))
 face_cascade = cv2.CascadeClassifier('haarcascades/haarcascade_frontalface_alt.xml')
 
+
 # helper to avoid image download
 def loadImage(URL):
     with urllib.request.urlopen(URL) as url:
@@ -23,20 +24,24 @@ def loadImage(URL):
         img = image.img_to_array(img)
     return img
 
+
 # helper
 def path_to_tensor(img_path):
     img = loadImage(img_path)
     return np.expand_dims(img, axis=0)
+
 
 # helper
 def paths_to_tensor(img_paths):
     list_of_tensors = [path_to_tensor(img_path) for img_path in tqdm(img_paths)]
     return np.vstack(list_of_tensors)
 
+
 # helper
 def extract_Resnet50(tensor):
     from keras.applications.resnet50 import ResNet50, preprocess_input
     return ResNet50(weights='imagenet', include_top=False).predict(preprocess_input(tensor))
+
 
 # returns predicted breed name
 def Resnet50_predict_breed(img_path, model):
