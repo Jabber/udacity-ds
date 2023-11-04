@@ -95,7 +95,7 @@ The path_to_tensor function takes a path to a color image as input and returns a
 (1,224,224,3).
 
 ## Modeling
-![model1]('img/img6.jpg')
+![model1](img/img6.jpg)
 First a new model was trained for reference with steps:
 - Created a Sequential
 - Created a convolutional layer with 16 filters, 2 kernel matching the input size with a relu activation function
