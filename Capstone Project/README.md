@@ -3,10 +3,9 @@
 
 ## Instructions
 To run the model, use python 3.9 and install libraries from requirements.txt
-
-    ```
-    pip3 install -r requirements.txt
-    ```
+```
+pip3 install -r requirements.txt
+```
 To run BE, navigate to the webapp folder and run app.py. The application will be available on
 ```
 http://127.0.0.1:3000
