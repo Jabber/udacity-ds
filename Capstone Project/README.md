@@ -85,6 +85,36 @@ Webapp
 ![img5](img/img5.jpg)
 
 ## Model
+
+
+### Data Preprocessing
+The primary preprocessing step is contained in the path_to_tensor function that is built into all other functions
+
+The path_to_tensor function takes a path to a color image as input and returns a 4D tensor suitable for supplying to a Keras CNN. The function first loads the image and resizes it to a square image that is  224×224
+  pixels. Next, the image is converted to an array, which is then resized to a 4D tensor. In this case, since we are working with color images, each image has three channels. Likewise, since we are processing a single image (or sample), the returned tensor will always have shape
+(1,224,224,3).
+
+## Modeling
+![model1]('img/img6.jpg')
+First a new model was trained for reference with steps:
+- Created a Sequential
+- Created a convolutional layer with 16 filters, 2 kernel matching the input size with a relu activation function
+- Used pooling with size 2
+- Created a convolutional layer with 32 filters, 2 kernel with a relu activation function
+- Used pooling with size 2
+- Created a convolutional layer with 64 filters, 2 kernel with a relu activation function
+- Used a pooling with size 2
+- Used a global average pooling and 
+- Added a dense layer at the end with softmax to get probable distribution
+This only resulted in an ~1% accuracy, so Transfer learning was used.
+
+with VGG16,19 and Resnet 50, bottleneck features were used with 
+- Sequential
+- Global average pooling
+- and a dense layer
+
+VGG16 had 40%+ accuracy and Resnet had the highest of 78%+ so Resnet was chosen with these custom weights.
+
 ## Result
 
 The updated Resnet model scored a 78%+ accuracy which is a substantial result compared to
