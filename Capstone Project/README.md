@@ -38,12 +38,16 @@ or neither. Then,
 - if a human is detected in the image, return the resembling dog breed.
 - if neither is detected in the image, provide output that indicates an error."
 
+### Strategy
 To solve this problem a series of steps were taken:
 
 - create a face detection algorithm
 - create a dog detection algorithm
 - build a CNN that predicts the dog breed upon request
 - build web app for user access
+
+### Expected solution
+A unified algorithm that checks the main subject based on a provided url of an image, and responds with a resembling dog breed or an error message
 
 ### Metrics
 
@@ -80,6 +84,7 @@ Webapp
 
 ![img5](img/img5.jpg)
 
+## Model
 ## Result
 
 The updated Resnet model scored a 78%+ accuracy which is a substantial result compared to
@@ -95,9 +100,10 @@ Training the model, building the pipeline, and all building blocks of the final 
 notebooks to the files and deploying it was a great challenge
 that provided an E2E coverage of software, data engineering and data science.
 
+## Improvements 
 A potential improvement area could be uploading files and creating a repository of already requested files or saving
 previous requests and responses and serving these from cache
 
-## Credit
+## Acknowledgment
 
-The algorithms were built on Udacity's provided CNN practice and thinking framework 
+The algorithms were built on Udacity's provided CNN practice and thinking framework
